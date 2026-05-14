@@ -1,0 +1,139 @@
+<div class="emp-inner-page">
+  @if (loadError()) {
+    <p class="emp-banner error">{{ loadError() }}</p>
+  }
+
+  <div class="emp-grid">
+    <div class="emp-col-main">
+      <section class="emp-stats" aria-label="Personal stats">
+        <article class="glass-card emp-stat-card">
+          <div class="emp-stat-head">
+            <span class="emp-stat-label">Tasks Assigned</span>
+            <button type="button" class="emp-kebab" aria-label="More options">⋯</button>
+          </div>
+          <div class="emp-stat-value">{{ stats().assigned }}</div>
+          <div class="emp-spark spark-up" aria-hidden="true"></div>
+          <div class="emp-stat-foot ok">{{ stats().assignedDelta }} <span class="muted">this week</span></div>
+        </article>
+        <article class="glass-card emp-stat-card">
+          <div class="emp-stat-head">
+            <span class="emp-stat-label">Completed Tasks</span>
+            <button type="button" class="emp-kebab" aria-label="More options">⋯</button>
+          </div>
+          <div class="emp-stat-value">{{ stats().completed }}</div>
+          <div class="emp-ring" [style.--p]="ringSweep()"></div>
+          <div class="emp-stat-foot muted">Productivity indicator</div>
+        </article>
+        <article class="glass-card emp-stat-card warn-card">
+          <div class="emp-stat-head">
+            <span class="emp-stat-label">Pending Review</span>
+            <button type="button" class="emp-kebab" aria-label="More options">⋯</button>
+          </div>
+          <div class="emp-stat-value warn">{{ stats().pendingReview }}</div>
+          <div class="emp-stat-pill warn">Awaiting feedback</div>
+        </article>
+        <article class="glass-card emp-stat-card danger-card">
+          <div class="emp-stat-head">
+            <span class="emp-stat-label">Overdue Tasks</span>
+            <button type="button" class="emp-kebab" aria-label="More options">⋯</button>
+          </div>
+          <div class="emp-stat-value danger">{{ stats().overdue }}</div>
+          <div class="emp-stat-alert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Needs attention
+          </div>
+        </article>
+      </section>
+
+      <section class="glass-card emp-today-card">
+        <div class="emp-section-head">
+          <h2>Today’s Tasks</h2>
+          <a routerLink="/employee-dashboard/tasks" class="emp-link-btn">View All</a>
+        </div>
+        <ul class="emp-task-list">
+          @for (t of displayTasks(); track t.id) {
+            <li class="emp-task-row">
+              <label class="emp-check">
+                <input
+                  type="checkbox"
+                  [checked]="isTaskDone(t)"
+                  [disabled]="busyId() === t.id || t.id.startsWith('demo-')"
+                  (change)="toggleTaskDone(t)"
+                />
+                <span class="emp-check-ui"></span>
+              </label>
+              <div class="emp-task-body">
+                <div class="emp-task-title-row">
+                  <span class="emp-task-title">{{ t.title }}</span>
+                  <span class="emp-prio" [class.high]="t.priority === 'high'" [class.med]="t.priority === 'medium'" [class.low]="t.priority === 'low'">
+                    {{ t.priority === 'high' ? 'High' : t.priority === 'medium' ? 'Medium' : 'Low' }}
+                  </span>
+                </div>
+                <p class="emp-task-desc">{{ t.description }}</p>
+                <div class="emp-task-meta">
+                  <span class="emp-deadline">{{ t.deadlineLabel }}</span>
+                  <div class="emp-task-progress">
+                    <div class="emp-mini-bar"><span [style.width.%]="t.progress"></span></div>
+                    <span class="emp-pct">{{ t.progress }}%</span>
+                  </div>
+                  <div class="emp-mini-avatars">
+                    @for (a of t.avatars; track a) {
+                      <span class="mini-av">{{ a }}</span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <div class="emp-split-row">
+        <section class="glass-card emp-team-card">
+          <div class="emp-section-head">
+            <h2>Team Collaboration</h2>
+          </div>
+          <ul class="emp-team-list">
+            @for (m of teamMembers; track m.name) {
+              <li class="emp-team-row">
+                <span class="emp-team-av">{{ m.initial }}</span>
+                <div class="emp-team-info">
+                  <span class="emp-team-name">{{ m.name }}</span>
+                  <span class="emp-team-task">{{ m.task }}</span>
+                </div>
+                <span class="emp-online" [class.off]="!m.online">{{ m.online ? 'Online' : 'Away' }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+
+    </div>
+
+    <aside class="emp-col-right">
+      <section class="glass-card emp-schedule">
+        <div class="emp-section-head">
+          <div>
+            <h2>Today Schedule</h2>
+            <p class="emp-schedule-date">{{ scheduleDateLabel() }}</p>
+          </div>
+        </div>
+        <ul class="emp-timeline">
+          @for (e of scheduleEvents; track e.title) {
+            <li class="emp-event" [style.--accent-line]="e.color">
+              <span class="emp-event-time">{{ e.time }}</span>
+              <div class="emp-event-card">
+                <span class="emp-event-title">{{ e.title }}</span>
+                <div class="emp-mini-avatars small">
+                  @for (x of e.initials; track x) {
+                    <span class="mini-av">{{ x }}</span>
+                  }
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="emp-inner-page">
+  <header>
+    <h1 class="emp-page-title">My Projects</h1>
+    <p class="emp-page-desc">Track delivery, teammates, and deadlines across your initiatives.</p>
+  </header>
+
+  <div class="emp-project-grid">
+    @for (p of state.projects(); track p.id) {
+      <article class="glass-card emp-project-card" (click)="open(p)" (keyup.enter)="open(p)" tabindex="0" role="button">
+        <div class="emp-project-meta">
+          <span class="emp-status-badge" [class.todo]="p.status === 'on-hold'" [class.done]="p.status === 'completed'" [class.in-progress]="p.status === 'active'">{{
+            statusLabel(p.status)
+          }}</span>
+        </div>
+        <h2 style="margin: 0; font-size: 1.1rem">{{ p.name }}</h2>
+        <p style="margin: 0; color: var(--text-muted); font-size: 0.88rem; line-height: 1.45">{{ p.description }}</p>
+        <div class="emp-progress-row">
+          <div class="emp-progress-track"><span [style.width.%]="p.progress"></span></div>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent)">{{ p.progress }}%</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px">
+          <span style="font-size: 0.78rem; color: var(--text-muted)">Deadline: {{ p.deadline }}</span>
+          <div class="emp-team-chips">
+            @for (m of p.team; track m.name) {
+              <span class="emp-team-chip" [title]="m.name">{{ m.initial }}</span>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  @if (selected(); as proj) {
+    <div class="emp-modal-backdrop" (click)="close()" role="presentation">
+      <div class="glass-card emp-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+        <button type="button" class="emp-modal-close" (click)="close()" aria-label="Close">×</button>
+        <h2>{{ proj.name }}</h2>
+        <p style="color: var(--text-muted)">{{ proj.description }}</p>
+        <ul style="margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 0.9rem">
+          <li>Status: {{ statusLabel(proj.status) }}</li>
+          <li>Progress: {{ proj.progress }}%</li>
+          <li>Deadline: {{ proj.deadline }}</li>
+        </ul>
+        <p style="font-size: 0.85rem; font-weight: 700; margin-top: 16px">Team</p>
+        <div class="emp-team-chips">
+          @for (m of proj.team; track m.name) {
+            <span class="emp-team-chip">{{ m.initial }}</span>
+          }
+        </div>
+        <div class="emp-modal-actions">
+          <button type="button" class="emp-btn-secondary" (click)="close()">Close</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

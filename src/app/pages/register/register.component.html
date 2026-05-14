@@ -1,0 +1,52 @@
+<div class="shell">
+  <div class="card">
+    <h1>Create account</h1>
+    <p class="muted">Your role defaults to Employee. Managers are promoted in the database.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>
+        Full Name
+        <input type="text" formControlName="fullname" autocomplete="name" />
+      </label>
+      @if (form.controls.fullname.touched && form.controls.fullname.invalid) {
+        <span class="field-error">Full name is required</span>
+      }
+
+      <label>
+        Email
+        <input type="email" formControlName="email" autocomplete="email" />
+      </label>
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <span class="field-error">Valid email is required</span>
+      }
+
+      <label>
+        Password
+        <input type="password" formControlName="password" autocomplete="new-password" />
+      </label>
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <span class="field-error">At least 8 characters</span>
+      }
+
+      <label>
+        Confirm password
+        <input type="password" formControlName="confirm" autocomplete="new-password" />
+      </label>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+      @if (info()) {
+        <p class="success">{{ info() }}</p>
+      }
+
+      <button type="submit" [disabled]="submitting()">{{ submitting() ? 'Creating…' : 'Sign up' }}</button>
+      <button type="button" class="secondary" routerLink="/login">Already registered? Sign in</button>
+    </form>
+
+    <p class="muted footer">
+      Need help?
+      <a routerLink="/login">Back to login</a>
+    </p>
+  </div>
+</div>

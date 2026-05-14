@@ -1,0 +1,49 @@
+<div class="emp-inner-page">
+  <header>
+    <h1 class="emp-page-title">Messages</h1>
+    <p class="emp-page-desc">Team threads, DMs, and channels — all in one place.</p>
+  </header>
+
+  <div class="glass-card emp-chat-layout">
+    <div class="emp-conv-list">
+      @for (c of mock.conversations(); track c.id) {
+        <button type="button" class="emp-conv-item" [class.active]="activeId() === c.id" (click)="select(c.id)">
+          <span class="emp-conv-av">{{ c.initial }}</span>
+          <div style="min-width: 0">
+            <div style="display: flex; align-items: center; gap: 8px">
+              <strong style="font-size: 0.9rem">{{ c.name }}</strong>
+              @if (c.online) {
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent)"></span>
+              }
+            </div>
+            <div class="emp-conv-preview">{{ c.lastPreview }}</div>
+          </div>
+        </button>
+      }
+    </div>
+
+    @if (active(); as thread) {
+      <div class="emp-chat-main">
+        <div class="emp-chat-head">
+          <div>
+            <strong>{{ thread.name }}</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted)">{{ thread.online ? 'Online' : 'Away' }}</div>
+          </div>
+        </div>
+        <div class="emp-chat-msgs">
+          @for (m of thread.messages; track m.id) {
+            <div class="emp-msg" [class.me]="m.author === 'me'" [class.them]="m.author === 'them'">
+              {{ m.text }}
+              <div class="emp-msg-meta">{{ m.at }}</div>
+            </div>
+          }
+        </div>
+        <div class="emp-chat-input-row">
+          <button type="button" class="emp-icon-square" aria-label="Attach file" title="Attach (demo)">📎</button>
+          <textarea rows="2" placeholder="Write a message…" [value]="draft()" (input)="draft.set($any($event.target).value)"></textarea>
+          <button type="button" class="emp-btn-primary" (click)="send()">Send</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

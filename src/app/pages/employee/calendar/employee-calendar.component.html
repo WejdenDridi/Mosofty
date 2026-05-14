@@ -1,0 +1,70 @@
+<div class="emp-inner-page">
+  <header>
+    <h1 class="emp-page-title">Calendar</h1>
+    <p class="emp-page-desc">Monthly view with deadlines, meetings, and task blocks.</p>
+  </header>
+
+  <div class="emp-cal-layout">
+    <section class="glass-card" style="padding: 22px">
+      <div class="emp-cal-header">
+        <button type="button" class="emp-cal-nav-btn" (click)="prevMonth()" aria-label="Previous month">‹</button>
+        <h2 style="margin: 0; font-size: 1.1rem">{{ title() }}</h2>
+        <button type="button" class="emp-cal-nav-btn" (click)="nextMonth()" aria-label="Next month">›</button>
+      </div>
+      <div class="emp-cal-grid" style="margin-top: 8px">
+        @for (d of ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']; track d) {
+          <div class="emp-cal-dow">{{ d }}</div>
+        }
+        @for (c of cells(); track $index) {
+          <button
+            type="button"
+            class="emp-cal-cell"
+            [class.muted]="!c.inMonth"
+            [class.selected]="isSelected(c)"
+            [disabled]="!c.inMonth || !c.iso"
+            (click)="selectCell(c)"
+          >
+            @if (c.label !== '') {
+              <span class="emp-cal-daynum">{{ c.label }}</span>
+            }
+            @if (c.iso) {
+              <div class="emp-cal-dots">
+                @for (ev of eventsOn(c.iso); track ev.id) {
+                  <span class="emp-cal-dot" [class]="ev.type"></span>
+                }
+              </div>
+            }
+          </button>
+        }
+      </div>
+    </section>
+
+    <aside class="emp-cal-side">
+      <section class="glass-card" style="padding: 20px">
+        <h3 style="margin: 0 0 12px; font-size: 1rem">Selected day</h3>
+        @if (selectedIso(); as iso) {
+          @for (ev of eventsOn(iso); track ev.id) {
+            <div class="emp-event-pill" [class.deadline]="ev.type === 'deadline'" [class.meeting]="ev.type === 'meeting'">
+              <strong>{{ ev.time }}</strong> — {{ ev.title }}
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; text-transform: capitalize">{{ ev.type }}</div>
+            </div>
+          } @empty {
+            <p style="margin: 0; color: var(--text-muted); font-size: 0.88rem">No events on this date.</p>
+          }
+        } @else {
+          <p style="margin: 0; color: var(--text-muted); font-size: 0.88rem">Click a date to see meetings, tasks, and deadlines.</p>
+        }
+      </section>
+
+      <section class="glass-card" style="padding: 20px">
+        <h3 style="margin: 0 0 12px; font-size: 1rem">Upcoming</h3>
+        @for (ev of upcoming(); track ev.id) {
+          <div class="emp-event-pill" [class.deadline]="ev.type === 'deadline'" [class.meeting]="ev.type === 'meeting'">
+            <div style="font-size: 0.72rem; color: var(--text-muted)">{{ ev.date }} · {{ ev.time }}</div>
+            {{ ev.title }}
+          </div>
+        }
+      </section>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,721 @@
+/* Global styles for employee area inner routes (router-outlet children) */
+a.emp-brand {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+a.emp-nav-item {
+  text-decoration: none;
+  display: flex;
+  box-sizing: border-box;
+}
+
+a.emp-bnav {
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+}
+
+a.emp-quick-btn {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.emp-inner-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.emp-page-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.emp-page-desc {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.emp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emp-search-field {
+  flex: 1;
+  min-width: 200px;
+  max-width: 360px;
+  position: relative;
+}
+
+.emp-search-field svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.emp-search-field input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--text);
+  padding: 11px 14px 11px 40px;
+  font: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.emp-search-field input:focus {
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.emp-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emp-chip {
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.emp-chip:hover {
+  color: var(--accent);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.emp-chip.active {
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--accent);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.emp-task-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.emp-task-card {
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emp-status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+}
+
+.emp-status-badge.todo {
+  color: var(--warn-orange);
+  background: rgba(245, 166, 35, 0.1);
+}
+.emp-status-badge.in-progress {
+  color: var(--info);
+  background: rgba(91, 156, 245, 0.1);
+}
+.emp-status-badge.done {
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.emp-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emp-progress-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.emp-progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1d4ed8, var(--accent));
+  transition: width 0.4s ease;
+}
+
+.emp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(15, 23, 42, 0.16);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.emp-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 24px;
+  position: relative;
+}
+
+.emp-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.emp-modal-close:hover {
+  background: rgba(255, 75, 75, 0.15);
+  color: var(--danger);
+}
+
+.emp-modal h2 {
+  margin: 0 40px 8px 0;
+  font-size: 1.2rem;
+}
+
+.emp-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.emp-btn-primary {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  color: #04110c;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+}
+
+.emp-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.emp-btn-secondary {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.emp-btn-secondary:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Projects */
+.emp-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.emp-project-card {
+  padding: 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.emp-project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.emp-team-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.emp-team-chip {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Calendar */
+.emp-cal-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+.emp-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.emp-cal-nav-btn {
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.emp-cal-nav-btn:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  color: var(--accent);
+}
+
+.emp-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.emp-cal-dow {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+
+.emp-cal-cell {
+  aspect-ratio: 1;
+  min-height: 72px;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.emp-cal-cell.muted {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.emp-cal-cell:not(.muted):hover {
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.emp-cal-cell.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.emp-cal-daynum {
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.emp-cal-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.emp-cal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.emp-cal-dot.meeting {
+  background: var(--info);
+}
+.emp-cal-dot.task {
+  background: var(--accent);
+}
+.emp-cal-dot.deadline {
+  background: var(--danger);
+}
+
+.emp-cal-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emp-event-pill {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--accent);
+}
+
+.emp-event-pill.deadline {
+  border-left-color: var(--danger);
+}
+.emp-event-pill.meeting {
+  border-left-color: var(--info);
+}
+
+/* Messages */
+.emp-chat-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  min-height: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--card-border, rgba(59, 130, 246, 0.12));
+}
+
+.emp-conv-list {
+  background: rgba(255, 255, 255, 0.7);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.emp-conv-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s;
+}
+
+.emp-conv-item:hover,
+.emp-conv-item.active {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.emp-conv-av {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  background: rgba(59, 130, 246, 0.2);
+  flex-shrink: 0;
+}
+
+.emp-conv-preview {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.emp-chat-main {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.emp-chat-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emp-chat-msgs {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emp-msg {
+  max-width: 78%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.emp-msg.me {
+  align-self: flex-end;
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.emp-msg.them {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+}
+
+.emp-msg-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.emp-chat-input-row {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-light);
+  align-items: flex-end;
+}
+
+.emp-chat-input-row textarea {
+  flex: 1;
+  min-height: 44px;
+  max-height: 120px;
+  resize: vertical;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--text);
+  padding: 12px 14px;
+  font: inherit;
+  outline: none;
+}
+
+.emp-icon-square {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emp-icon-square:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  color: var(--accent);
+}
+
+/* Files page */
+.emp-upload-zone {
+  border: 2px dashed rgba(59, 130, 246, 0.25);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  background: rgba(59, 130, 246, 0.04);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.emp-upload-zone:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.emp-files-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.emp-files-table th,
+.emp-files-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.88rem;
+}
+
+.emp-files-table th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* Settings */
+.emp-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.emp-settings-card {
+  padding: 22px;
+}
+
+.emp-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.emp-form-row label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.emp-form-row input,
+.emp-form-row select {
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--text);
+  padding: 12px 14px;
+  font: inherit;
+  outline: none;
+}
+
+.emp-form-row input:focus,
+.emp-form-row select:focus {
+  border-color: rgba(59, 130, 246, 0.45);
+}
+
+.emp-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.emp-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.emp-switch {
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.emp-switch.on {
+  background: rgba(59, 130, 246, 0.45);
+}
+
+.emp-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+.emp-switch.on::after {
+  transform: translateX(20px);
+}
+
+@media (max-width: 1024px) {
+  .emp-cal-layout {
+    grid-template-columns: 1fr;
+  }
+  .emp-chat-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .emp-conv-list {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .emp-conv-item {
+    min-width: 220px;
+    border-bottom: none;
+    border-right: 1px solid var(--border-light);
+  }
+}

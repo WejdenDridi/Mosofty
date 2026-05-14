@@ -1,0 +1,44 @@
+<div class="verify-container">
+  <div class="verify-card">
+    <div class="header">
+      <h1>Verify your account</h1>
+      <p>We sent a 6-digit code to <strong>{{ email() }}</strong></p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onVerify()">
+      <div class="form-group">
+        <label for="otp">Enter 6-digit code</label>
+        <input 
+          type="text" 
+          id="otp" 
+          formControlName="otp" 
+          placeholder="000000" 
+          maxlength="6"
+          autocomplete="one-time-code"
+          [class.invalid]="form.get('otp')?.invalid && form.get('otp')?.touched"
+        >
+        @if (form.get('otp')?.invalid && form.get('otp')?.touched) {
+          <span class="error-text">Please enter a valid 6-digit code</span>
+        }
+      </div>
+
+      @if (error()) {
+        <div class="alert alert-error">
+          {{ error() }}
+        </div>
+      }
+
+      <button type="submit" [disabled]="submitting()" class="btn-primary">
+        @if (submitting()) {
+          Verifying...
+        } @else {
+          Confirm Code
+        }
+      </button>
+    </form>
+
+    <div class="footer">
+      <p>Didn't receive the code? <a href="javascript:void(0)" (click)="form.reset()">Try again</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+.verify-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0B0F0E;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.verify-card {
+  background: #111615;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  border: 1px solid #1f2a28;
+}
+
+.header h1 {
+  font-size: 32px;
+  color: #38d39f;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.header p {
+  color: #9ca3af;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.header p strong {
+  color: #ffffff;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  font-size: 32px;
+  letter-spacing: 12px;
+  text-align: center;
+  background: #0B0F0E;
+  border: 2px solid #1f2a28;
+  border-radius: 12px;
+  transition: all 0.2s;
+  color: #38d39f;
+  font-weight: bold;
+}
+
+input:focus {
+  outline: none;
+  border-color: #38d39f;
+  box-shadow: 0 0 0 4px rgba(56, 211, 159, 0.1);
+}
+
+input.invalid {
+  border-color: #ef4444;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 8px;
+  display: block;
+}
+
+.alert {
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.alert-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background-color: #38d39f;
+  color: #0B0F0E;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footer {
+  margin-top: 32px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.footer a {
+  color: #38d39f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
